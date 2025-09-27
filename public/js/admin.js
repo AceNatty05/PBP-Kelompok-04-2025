@@ -4,7 +4,6 @@ let products = JSON.parse(localStorage.getItem('products')) || [
         id: 1,
         name: 'Laptop Gaming',
         price: 12000000,
-        image: '../public/images/laptop.jpg',
         description: 'Laptop gaming dengan spesifikasi tinggi untuk pengalaman bermain game yang optimal',
         stock: 15,
         category: 'elektronik',
@@ -14,7 +13,6 @@ let products = JSON.parse(localStorage.getItem('products')) || [
         id: 2,
         name: 'Smartphone',
         price: 5000000,
-        image: '../public/images/smartphone.jpg',
         description: 'Smartphone dengan kamera canggih dan performa tinggi',
         stock: 30,
         category: 'elektronik',
@@ -24,7 +22,6 @@ let products = JSON.parse(localStorage.getItem('products')) || [
         id: 3,
         name: 'Headphone Wireless',
         price: 1500000,
-        image: '../public/images/headphone.jpg',
         description: 'Headphone dengan kualitas suara terbaik dan fitur noise cancellation',
         stock: 25,
         category: 'elektronik',
@@ -34,13 +31,17 @@ let products = JSON.parse(localStorage.getItem('products')) || [
         id: 4,
         name: 'Smart Watch',
         price: 2500000,
-        image: '../public/images/smartwatch.jpg',
         description: 'Smartwatch dengan fitur kesehatan dan notifikasi smartphone',
         stock: 20,
         category: 'elektronik',
         createdAt: new Date('2023-04-05').toISOString()
     }
 ];
+
+// Simpan data produk awal jika belum ada
+if (products.length === 0) {
+    localStorage.setItem('products', JSON.stringify(products));
+}
 
 // Variabel global
 let currentPage = 1;
@@ -57,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.href = '../index.html';
         return;
     }
-    
+
     initializeAdminPanel();
 });
 
@@ -94,7 +95,7 @@ function displayProducts(page = 1) {
     if (productsToShow.length === 0) {
         tableBody.innerHTML = `
             <tr>
-                <td colspan="8" style="text-align: center; padding: 2rem;">
+                <td colspan="7" style="text-align: center; padding: 2rem;">
                     <p>Tidak ada produk yang ditemukan</p>
                     <button id="add-first-product" class="add-product-btn" style="margin-top: 1rem;">Tambah Produk Pertama</button>
                 </td>
@@ -110,9 +111,6 @@ function displayProducts(page = 1) {
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${rowNumber}</td>
-                <td class="product-image-cell">
-                    <img src="${product.image}" alt="${product.name}" onerror="this.src='../public/images/placeholder.jpg'">
-                </td>
                 <td>${product.name}</td>
                 <td>Rp ${product.price.toLocaleString('id-ID')}</td>
                 <td>${product.description.length > 50 ? product.description.substring(0, 50) + '...' : product.description}</td>
@@ -279,7 +277,6 @@ function openModal(product = null) {
         document.getElementById('product-stock').value = product.stock;
         document.getElementById('product-category').value = product.category;
         document.getElementById('product-description').value = product.description;
-        document.getElementById('product-image').value = product.image;
     } else {
         modalTitle.textContent = 'Tambah Produk Baru';
         document.getElementById('product-form').reset();
@@ -335,10 +332,9 @@ function saveProduct() {
     const stock = parseInt(document.getElementById('product-stock').value);
     const category = document.getElementById('product-category').value;
     const description = document.getElementById('product-description').value;
-    const image = document.getElementById('product-image').value;
     
     // Validasi
-    if (!name || !price || !stock || !category || !description || !image) {
+    if (!name || !price || !stock || !category || !description) {
         alert('Semua field harus diisi!');
         return;
     }
@@ -359,7 +355,6 @@ function saveProduct() {
                 stock,
                 category,
                 description,
-                image,
                 updatedAt: new Date().toISOString()
             };
         }
@@ -372,7 +367,6 @@ function saveProduct() {
             stock,
             category,
             description,
-            image,
             createdAt: new Date().toISOString()
         };
         products.push(newProduct);

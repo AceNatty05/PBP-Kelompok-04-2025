@@ -1,4 +1,4 @@
-/* Reset dan Base Styles */
+/* Reset dan Base Styles - DARK THEME */
 * {
     margin: 0;
     padding: 0;
@@ -6,19 +6,22 @@
 }
 
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
     line-height: 1.6;
-    color: #333;
+    color: #F0F6FC;
+    background-color: #0D1117;
 }
 
-/* Header dan Navigasi */
+/* Header dan Navigasi - DARK THEME */
 header {
-    background-color: #2c3e50;
-    color: white;
+    background-color: #0D1117;
+    color: #F0F6FC;
     padding: 1rem 0;
     position: sticky;
     top: 0;
     z-index: 100;
+    border-bottom: 1px solid #30363D;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .navbar {
@@ -31,53 +34,82 @@ header {
 }
 
 .nav-brand h1 {
-    color: #3498db;
+    color: #58A6FF;
+    font-weight: 600;
+    font-size: 1.8rem;
 }
 
 .nav-menu {
     display: flex;
     list-style: none;
     gap: 1.5rem;
+    align-items: center;
 }
 
 .nav-menu a {
-    color: white;
+    color: #8B949E;
     text-decoration: none;
-    transition: color 0.3s;
+    transition: all 0.3s;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: 500;
 }
 
 .nav-menu a:hover {
-    color: #3498db;
+    color: #58A6FF;
+    background-color: rgba(88, 166, 255, 0.1);
 }
 
 .login-btn, .register-btn, .admin-btn, .logout-btn {
     padding: 0.5rem 1rem;
-    border-radius: 4px;
+    border-radius: 6px;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 600;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
 }
 
 .login-btn {
     background-color: transparent;
-    border: 1px solid #3498db;
-    color: #3498db;
+    border: 1px solid #30363D;
+    color: #8B949E;
+}
+
+.login-btn:hover {
+    background-color: rgba(88, 166, 255, 0.1);
+    border-color: #58A6FF;
+    color: #58A6FF;
 }
 
 .register-btn {
-    background-color: #3498db;
-    color: white;
+    background: linear-gradient(135deg, #1F6FEB, #58A6FF);
+    color: #FFFFFF;
+}
+
+.register-btn:hover {
+    background: linear-gradient(135deg, #0D419D, #1F6FEB);
+    box-shadow: 0 4px 12px rgba(31, 111, 235, 0.3);
 }
 
 .admin-btn {
-    background-color: #e74c3c;
-    color: white;
+    background-color: #1F6FEB;
+    color: #FFFFFF;
+}
+
+.admin-btn:hover {
+    background-color: #0D419D;
+    box-shadow: 0 4px 12px rgba(31, 111, 235, 0.3);
 }
 
 .logout-btn {
-    background-color: #95a5a6;
-    color: white;
-    border: none;
-    cursor: pointer;
+    background-color: #F85149;
+    color: #FFFFFF;
+}
+
+.logout-btn:hover {
+    background-color: #DA3633;
+    box-shadow: 0 4px 12px rgba(248, 81, 73, 0.3);
 }
 
 .hamburger {
@@ -89,45 +121,67 @@ header {
 .hamburger span {
     width: 25px;
     height: 3px;
-    background-color: white;
+    background-color: #8B949E;
     margin: 3px 0;
     transition: 0.3s;
 }
 
-/* Hero Section */
+/* Hero Section - DARK THEME */
 .hero {
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../images/hero-bg.jpg');
-    background-size: cover;
-    background-position: center;
+    background: linear-gradient(135deg, #0D1117 0%, #161B22 100%);
     height: 60vh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    color: white;
+    color: #F0F6FC;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(88, 166, 255, 0.1) 0%, transparent 70%);
 }
 
 .hero-content h2 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
+    font-weight: 600;
+    color: #F0F6FC;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #8B949E;
 }
 
 .cta-button {
     display: inline-block;
-    background-color: #3498db;
-    color: white;
+    background: linear-gradient(135deg, #1F6FEB, #58A6FF);
+    color: #FFFFFF;
     padding: 0.8rem 1.5rem;
     text-decoration: none;
-    border-radius: 4px;
+    border-radius: 6px;
     margin-top: 1rem;
-    transition: background-color 0.3s;
+    transition: all 0.3s;
+    font-weight: 600;
+    border: none;
 }
 
 .cta-button:hover {
-    background-color: #2980b9;
+    background: linear-gradient(135deg, #0D419D, #1F6FEB);
+    box-shadow: 0 6px 20px rgba(31, 111, 235, 0.4);
+    transform: translateY(-2px);
 }
 
-/* Products Section */
+/* Products Section - DARK THEME */
 .products-section {
     max-width: 1200px;
     margin: 2rem auto;
@@ -138,43 +192,45 @@ header {
     text-align: center;
     margin-bottom: 2rem;
     font-size: 2rem;
+    color: #F0F6FC;
+    font-weight: 600;
 }
 
 .products-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1.5rem;
 }
 
 .product-card {
-    background-color: white;
+    background-color: #161B22;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    transition: transform 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+    border: 1px solid #30363D;
 }
 
 .product-card:hover {
     transform: translateY(-5px);
-}
-
-.product-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    border-color: #58A6FF;
 }
 
 .product-info {
-    padding: 1rem;
+    padding: 1.5rem;
 }
 
 .product-info h3 {
     margin-bottom: 0.5rem;
+    color: #F0F6FC;
+    font-size: 1.1rem;
+    font-weight: 600;
 }
 
 .product-price {
-    color: #e74c3c;
-    font-weight: bold;
+    color: #58A6FF;
+    font-weight: 600;
     font-size: 1.2rem;
     margin: 0.5rem 0;
 }
@@ -182,25 +238,311 @@ header {
 .add-to-cart {
     width: 100%;
     padding: 0.7rem;
-    background-color: #3498db;
-    color: white;
+    background: linear-gradient(135deg, #1F6FEB, #58A6FF);
+    color: #FFFFFF;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s;
+    font-weight: 600;
 }
 
 .add-to-cart:hover {
-    background-color: #2980b9;
+    background: linear-gradient(135deg, #0D419D, #1F6FEB);
+    box-shadow: 0 4px 12px rgba(31, 111, 235, 0.3);
 }
 
-/* Footer */
+/* Footer - DARK THEME */
 footer {
-    background-color: #34495e;
-    color: white;
+    background-color: #0D1117;
+    color: #8B949E;
     text-align: center;
-    padding: 1rem;
+    padding: 1.5rem;
+    margin-top: 3rem;
+    border-top: 1px solid #30363D;
+}
+
+/* Cart Section Styles - DARK THEME */
+.cart-section {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.cart-section h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    color: #F0F6FC;
+    font-weight: 600;
+}
+
+.cart-items {
+    display: grid;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.cart-item {
+    display: grid;
+    grid-template-columns: 2fr auto auto auto;
+    gap: 1rem;
+    align-items: center;
+    background-color: #161B22;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+    border: 1px solid #30363D;
+}
+
+.cart-item:hover {
+    border-color: #58A6FF;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.cart-item-details h3 {
+    margin-bottom: 0.5rem;
+    color: #F0F6FC;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.item-price {
+    color: #8B949E;
+    font-size: 0.9rem;
+}
+
+.cart-item-quantity {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #21262D;
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid #30363D;
+}
+
+.quantity-btn {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background-color: #58A6FF;
+    color: #FFFFFF;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.quantity-btn:hover {
+    background-color: #1F6FEB;
+}
+
+.quantity-btn:disabled {
+    background-color: #30363D;
+    color: #8B949E;
+    cursor: not-allowed;
+}
+
+.cart-item-quantity span {
+    font-weight: 600;
+    min-width: 30px;
+    text-align: center;
+    color: #F0F6FC;
+}
+
+.cart-item-total p {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #58A6FF;
+    min-width: 120px;
+    text-align: right;
+}
+
+.cart-item-remove .remove-btn {
+    background-color: #F85149;
+    color: #FFFFFF;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 600;
+}
+
+.cart-item-remove .remove-btn:hover {
+    background-color: #DA3633;
+}
+
+.cart-summary {
+    background-color: #161B22;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
     margin-top: 2rem;
+    border: 1px solid #30363D;
+}
+
+.cart-summary h3 {
+    color: #F0F6FC;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+#cart-total {
+    color: #58A6FF;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.checkout-btn {
+    background: linear-gradient(135deg, #1F6FEB, #58A6FF);
+    color: #FFFFFF;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 1rem;
+    font-weight: 600;
+}
+
+.checkout-btn:hover {
+    background: linear-gradient(135deg, #0D419D, #1F6FEB);
+    box-shadow: 0 6px 20px rgba(31, 111, 235, 0.4);
+}
+
+.checkout-btn:disabled {
+    background: #30363D;
+    color: #8B949E;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* Empty Cart State */
+.cart-empty {
+    text-align: center;
+    padding: 3rem;
+    color: #8B949E;
+}
+
+.cart-empty p {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.cart-empty .cta-button {
+    display: inline-block;
+    background: linear-gradient(135deg, #1F6FEB, #58A6FF);
+    color: #FFFFFF;
+    padding: 0.8rem 1.5rem;
+    text-decoration: none;
+    border-radius: 6px;
+    margin-top: 1rem;
+    transition: all 0.3s;
+    font-weight: 600;
+}
+
+.cart-empty .cta-button:hover {
+    background: linear-gradient(135deg, #0D419D, #1F6FEB);
+}
+
+/* Login Required State */
+.cart-login-required {
+    text-align: center;
+    padding: 3rem;
+    color: #8B949E;
+}
+
+.cart-login-required p {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.cart-login-required .auth-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.cart-login-required .login-btn,
+.cart-login-required .register-btn {
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.cart-login-required .login-btn {
+    background-color: transparent;
+    border: 1px solid #30363D;
+    color: #8B949E;
+}
+
+.cart-login-required .register-btn {
+    background: linear-gradient(135deg, #1F6FEB, #58A6FF);
+    color: #FFFFFF;
+    border: none;
+}
+
+.cart-login-required .login-btn:hover {
+    border-color: #58A6FF;
+    color: #58A6FF;
+}
+
+.cart-login-required .register-btn:hover {
+    background: linear-gradient(135deg, #0D419D, #1F6FEB);
+}
+
+/* Product Details */
+.product-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.5rem 0;
+}
+
+.product-stock {
+    font-size: 0.9rem;
+    color: #8B949E;
+}
+
+.product-stock.low {
+    color: #F85149;
+}
+
+.product-category {
+    color: #58A6FF;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.product-description {
+    color: #8B949E;
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+    line-height: 1.5;
+}
+
+/* Tombol stok habis */
+.add-to-cart.out-of-stock {
+    background: #30363D;
+    color: #8B949E;
+    cursor: not-allowed;
+    border: 1px solid #30363D;
+}
+
+.add-to-cart.out-of-stock:hover {
+    background: #30363D;
+    box-shadow: none;
+    transform: none;
 }
 
 /* Responsive Design */
@@ -214,11 +556,12 @@ footer {
         left: -100%;
         top: 70px;
         flex-direction: column;
-        background-color: #2c3e50;
+        background-color: #0D1117;
         width: 100%;
         text-align: center;
         transition: 0.3s;
         padding: 1rem 0;
+        border-top: 1px solid #30363D;
     }
     
     .nav-menu.active {
@@ -228,57 +571,46 @@ footer {
     .hero-content h2 {
         font-size: 2rem;
     }
+    
+    .cart-item {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 1rem;
+        padding-bottom: 1.5rem;
+        position: relative;
+    }
+    
+    .cart-item-quantity {
+        justify-content: center;
+    }
+    
+    .cart-item-remove {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+    }
+    
+    .cart-login-required .auth-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .cart-login-required .auth-buttons a {
+        width: 200px;
+        text-align: center;
+    }
 }
 
-/* Tambahkan CSS ini ke file style.css yang sudah ada */
-
-/* Badge kategori */
-.category-badge {
-    background-color: #3498db;
-    color: white;
-    padding: 0.2rem 0.5rem;
-    border-radius: 12px;
-    font-size: 0.8rem;
-}
-
-/* Tampilan ketika tidak ada produk */
-.no-products {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 3rem;
-    color: #7f8c8d;
-}
-
-/* Detail produk */
-.product-details {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0.5rem 0;
-}
-
-.product-stock {
-    font-size: 0.9rem;
-    color: #27ae60;
-}
-
-.product-stock.low {
-    color: #e74c3c;
-}
-
-.product-category {
-    color: #3498db;
-    font-size: 0.9rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-}
-
-/* Tombol stok habis */
-.add-to-cart.out-of-stock {
-    background-color: #95a5a6;
-    cursor: not-allowed;
-}
-
-.add-to-cart.out-of-stock:hover {
-    background-color: #95a5a6;
+@media (max-width: 480px) {
+    .cart-item {
+        grid-template-columns: 1fr;
+    }
+    
+    .cart-item-details h3 {
+        font-size: 1rem;
+    }
+    
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
 }

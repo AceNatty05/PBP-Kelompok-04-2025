@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BumiNadi</title>
-    <link rel="stylesheet" href="public/css/style.css">
+    <link rel="stylesheet" href="/public/css/style.css">
 </head>
 <body>
     <header>
@@ -39,7 +39,7 @@
     <main>
         <section class="hero">
             <div class="hero-content">
-                <h2>Selamat Datang di MiniStore</h2>
+                <h2>Selamat Datang di BumiNadi</h2>
                 <p>Temukan produk terbaik dengan harga terjangkau</p>
                 <a href="#products" class="cta-button">Belanja Sekarang</a>
             </div>

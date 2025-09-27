@@ -4,21 +4,25 @@
     align-items: center;
     min-height: 80vh;
     padding: 2rem 1rem;
+    background: #0D1117;
 }
 
 .auth-form {
-    background-color: white;
+    background-color: #161B22;
     padding: 2rem;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 400px;
+    border: 1px solid #30363D;
 }
 
 .auth-form h2 {
     text-align: center;
     margin-bottom: 1.5rem;
-    color: #2c3e50;
+    color: #F0F6FC;
+    font-weight: 600;
+    font-size: 1.8rem;
 }
 
 .form-group {
@@ -28,46 +32,66 @@
 .form-group label {
     display: block;
     margin-bottom: 0.5rem;
-    font-weight: bold;
+    font-weight: 500;
+    color: #8B949E;
 }
 
 .form-group input {
     width: 100%;
     padding: 0.7rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    border: 1px solid #30363D;
+    border-radius: 6px;
     font-size: 1rem;
+    background-color: #0D1117;
+    color: #F0F6FC;
+    transition: all 0.3s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #58A6FF;
+    box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.2);
 }
 
 .submit-btn {
     width: 100%;
     padding: 0.8rem;
-    background-color: #3498db;
-    color: white;
+    background: linear-gradient(135deg, #1F6FEB, #58A6FF);
+    color: #FFFFFF;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s;
+    font-weight: 600;
+    margin-top: 1rem;
 }
 
 .submit-btn:hover {
-    background-color: #2980b9;
+    background: linear-gradient(135deg, #0D419D, #1F6FEB);
+    box-shadow: 0 4px 12px rgba(31, 111, 235, 0.3);
 }
 
 .auth-link {
     text-align: center;
     margin-top: 1rem;
+    color: #8B949E;
 }
 
 .auth-link a {
-    color: #3498db;
+    color: #58A6FF;
     text-decoration: none;
+    font-weight: 500;
+}
+
+.auth-link a:hover {
+    text-decoration: underline;
 }
 
 .error-message {
-    color: #e74c3c;
+    color: #F85149;
     text-align: center;
     margin-top: 1rem;
     display: none;
+    font-weight: 500;
 }
