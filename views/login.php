@@ -22,21 +22,28 @@
 
     <main>
         <div class="auth-container">
-            <form class="auth-form" id="login-form">
+            <form class="auth-form" id="login-form" action="/nama-folder-proyek-anda/public/login" method="POST">
                 <h2>Login</h2>
+
+                <?php if (isset($error)): ?>
+                    <p style="color: red; text-align: center;"><?php echo $error; ?></p>
+                <?php endif; ?>
+                <?php if (isset($_GET['status']) && $_GET['status'] == 'reg_success'): ?>
+                    <p style="color: green; text-align: center;">Registrasi berhasil! Silakan login.</p>
+                <?php endif; ?>
+                
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" required>
+                    <input type="email" id="email" name="email" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" required>
+                    <input type="password" id="password" name="password" required>
                 </div>
-                <button type="submit" class="submit-btn">Login</button>
+                ...
                 <div class="auth-link">
-                    <p>Belum punya akun? <a href="register.html">Daftar di sini</a></p>
+                    <p>Belum punya akun? <a href="/nama-folder-proyek-anda/public/register">Daftar di sini</a></p>
                 </div>
-                <div class="error-message" id="error-message"></div>
             </form>
         </div>
     </main>

@@ -48,7 +48,29 @@
         <section id="products" class="products-section">
             <h2>Produk Kami</h2>
             <div class="products-grid" id="products-grid">
-                <!-- Produk akan dimuat melalui JavaScript -->
+                <?php if (empty($products)): ?>
+                    <div class="no-products">
+                        <p>Belum ada produk yang tersedia saat ini.</p>
+                    </div>
+                <?php else: ?>
+                    <?php foreach ($products as $product): ?>
+                        <div class="product-card">
+                            <img src="/public/images/<?php echo htmlspecialchars($product['image_filename']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="product-image">
+                            <div class="product-info">
+                                <h3><?php echo htmlspecialchars($product['name']); ?></h3>
+                                
+                                <div class="product-details">
+                                    <p class="product-price">Rp <?php echo number_format($product['price'], 0, ',', '.'); ?></p>
+                                    <p class="product-stock">Stok: <?php echo htmlspecialchars($product['stock']); ?></p>
+                                </div>
+            
+                                <button class="add-to-cart" data-id="<?php echo $product['id_products']; ?>">
+                                    Tambah ke Keranjang
+                                </button>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </div>
         </section>
     </main>
