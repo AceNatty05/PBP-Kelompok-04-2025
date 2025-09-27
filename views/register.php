@@ -22,7 +22,7 @@
 
     <main>
         <div class="auth-container">
-            <form class="auth-form" id="register-form" action="/nama-folder-proyek-anda/public/register" method="POST">
+            <form class="auth-form" id="register-form" action="/PBP-KELOMPOK-04-2025/public/register" method="POST">
                 <h2>Daftar Akun</h2>
 
                 <?php if (isset($error)): ?>
@@ -41,9 +41,9 @@
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" required>
                 </div>
-                ...
+                
                 <div class="auth-link">
-                    <p>Sudah punya akun? <a href="/nama-folder-proyek-anda/public/login">Login di sini</a></p>
+                    <p>Sudah punya akun? <a href="/PBP-KELOMPOK-04-2025/public/login">Login di sini</a></p>
                 </div>
             </form>
         </div>
