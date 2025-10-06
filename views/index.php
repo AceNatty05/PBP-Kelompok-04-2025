@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BumiNadi</title>
-    <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header>
@@ -13,20 +13,26 @@
                 <h1>BumiNadi</h1>
             </div>
             <ul class="nav-menu">
-                <li><a href="index.html">Beranda</a></li>
+                <li><a href="/">Beranda</a></li>
                 <li><a href="#products">Produk</a></li>
-                <li><a href="cart.html">Keranjang (<span id="cart-count">0</span>)</a></li>
-                <li id="auth-links">
-                    <a href="login.html" class="login-btn">Login</a>
-                    <a href="register.html" class="register-btn">Daftar</a>
-                </li>
-                <li id="admin-link" style="display: none;">
-                    <a href="admin/admin.html" class="admin-btn">Admin Panel</a>
-                </li>
-                <li id="user-info" style="display: none;">
-                    <span id="username-display"></span>
-                    <button id="logout-btn" class="logout-btn">Logout</button>
-                </li>
+                <li><a href="/cart">Keranjang (<span id="cart-count">0</span>)</a></li>
+
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <?php if ($_SESSION['user_role'] === 'admin'): ?>
+                        <li><a href="/admin" class="admin-btn">Admin Panel</a></li>
+                    <?php endif; ?>
+                    
+                    <li>
+                        <span style="color: white;">Halo, <?php echo htmlspecialchars($_SESSION['user_name']); ?></span>
+                        <a href="/logout" class="logout-btn" style="margin-left: 10px;">Logout</a>
+                    </li>
+
+                <?php else: ?>
+                    <li>
+                        <a href="/login" class="login-btn">Login</a>
+                        <a href="/register" class="register-btn">Daftar</a>
+                    </li>
+                <?php endif; ?>
             </ul>
             <div class="hamburger">
                 <span></span>
@@ -55,7 +61,7 @@
                 <?php else: ?>
                     <?php foreach ($products as $product): ?>
                         <div class="product-card">
-                            <img src="/public/images/<?php echo htmlspecialchars($product['image_filename']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="product-image">
+                            <img src="images/<?php echo htmlspecialchars($product['name']); ?>.jpg" alt="<?php echo htmlspecialchars($product['name']); ?>" class="product-image">
                             <div class="product-info">
                                 <h3><?php echo htmlspecialchars($product['name']); ?></h3>
                                 
@@ -79,7 +85,7 @@
         <p>&copy; 2025 BumiNadi. All rights reserved.</p>
     </footer>
 
-    <script src="public/js/auth.js"></script>
-    <script src="public/js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
