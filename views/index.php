@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BumiNadi</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/public/css/style.css">
 </head>
 <body>
     <header>
@@ -61,7 +61,8 @@
                 <?php else: ?>
                     <?php foreach ($products as $product): ?>
                         <div class="product-card">
-                            <img src="images/<?php echo htmlspecialchars($product['name']); ?>.jpg" alt="<?php echo htmlspecialchars($product['name']); ?>" class="product-image">
+                            <img src="/public/images/products/<?php echo htmlspecialchars($product['gambar']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="product-image">
+                            
                             <div class="product-info">
                                 <h3><?php echo htmlspecialchars($product['name']); ?></h3>
                                 
@@ -69,8 +70,8 @@
                                     <p class="product-price">Rp <?php echo number_format($product['price'], 0, ',', '.'); ?></p>
                                     <p class="product-stock">Stok: <?php echo htmlspecialchars($product['stock']); ?></p>
                                 </div>
-            
-                                <button class="add-to-cart" data-id="<?php echo $product['id_products']; ?>">
+                
+                                <button class="add-to-cart" data-id="<?php echo htmlspecialchars($product['id_products']); ?>">
                                     Tambah ke Keranjang
                                 </button>
                             </div>
@@ -85,7 +86,7 @@
         <p>&copy; 2025 BumiNadi. All rights reserved.</p>
     </footer>
 
-    <script src="js/auth.js"></script>
-    <script src="js/main.js"></script>
+    <script src="/public/js/auth.js"></script>
+    <script src="/public/js/main.js"></script>
 </body>
 </html>
