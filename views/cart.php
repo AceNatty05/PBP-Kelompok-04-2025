@@ -13,15 +13,15 @@
                 <h1>BumiNadi</h1>
             </div>
             <ul class="nav-menu">
-                <li><a href="index.html">Beranda</a></li>
-                <li><a href="index.html#products">Produk</a></li>
-                <li><a href="cart.html">Keranjang (<span id="cart-count">0</span>)</a></li>
+                <li><a href="index.php">Beranda</a></li>
+                <li><a href="index.php#products">Produk</a></li>
+                <li><a href="cart.php">Keranjang (<span id="cart-count">0</span>)</a></li>
                 <li id="auth-links">
-                    <a href="login.html" class="login-btn">Login</a>
-                    <a href="register.html" class="register-btn">Daftar</a>
+                    <a href="login.php" class="login-btn">Login</a>
+                    <a href="register.php" class="register-btn">Daftar</a>
                 </li>
                 <li id="admin-link" style="display: none;">
-                    <a href="admin/admin.html" class="admin-btn">Admin Panel</a>
+                    <a href="admin/admin.php" class="admin-btn">Admin Panel</a>
                 </li>
                 <li id="user-info" style="display: none;">
                     <span id="username-display"></span>

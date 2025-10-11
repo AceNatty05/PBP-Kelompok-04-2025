@@ -37,8 +37,8 @@ session_start();
 
                 <?php else: ?>
                     <li>
-                        <a href="/login" class="login-btn">Login</a>
-                        <a href="/register" class="register-btn">Daftar</a>
+                        <a href="/login.php" class="login-btn">Login</a>
+                        <a href="/register.php" class="register-btn">Daftar</a>
                     </li>
                 <?php endif; ?>
             </ul>

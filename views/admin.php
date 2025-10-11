@@ -134,6 +134,6 @@
         </div>
     </div>
 
-    <script src="admin.js"></script>
+    <script src=/public/js/admin.js></script>
 </body>
 </html>
