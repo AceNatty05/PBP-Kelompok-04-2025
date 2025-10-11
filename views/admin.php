@@ -1,10 +1,12 @@
+<?php?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - BumiNadi</title>
-    <link rel="stylesheet" href="/PBP-Kelompok-04-2025/public/css/style.css">
+    <link rel="stylesheet" href="/PBP-Kelompok-04-2025/public/css/admin.css">
 </head>
 <body>
     <header>
