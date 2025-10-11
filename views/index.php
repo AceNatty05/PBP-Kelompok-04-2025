@@ -1,3 +1,11 @@
+<?php
+
+session_start();
+// $controller = new ProductController($pdo);
+// $controller->index();
+
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
