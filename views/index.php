@@ -1,11 +1,3 @@
-<?php
-
-session_start();
-// $controller = new ProductController($pdo);
-// $controller->index();
-
-?>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -37,8 +29,8 @@ session_start();
 
                 <?php else: ?>
                     <li>
-                        <a href="/login.php" class="login-btn">Login</a>
-                        <a href="/register.php" class="register-btn">Daftar</a>
+                        <a href="/PBP-KELOMPOK-04-2025/public/login" class="login-btn">Login</a>
+                        <a href="/PBP-KELOMPOK-04-2025/public/register" class="register-btn">Daftar</a>
                     </li>
                 <?php endif; ?>
             </ul>
