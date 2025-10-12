@@ -17,7 +17,7 @@
             <ul class="nav-menu">
                 <li><a href="/">Kembali ke Toko</a></li>
                 <li><span id="admin-welcome">Halo, Admin!</span></li>
-                <li><button id="logout-btn" class="logout-btn">Logout</button></li>
+                <li><a href="/logout" id="logout-btn" class="logout-btn">Logout</a></li>
             </ul>
         </nav>
     </header>
