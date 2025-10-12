@@ -41,7 +41,7 @@
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" required>
                 </div>
-                
+                    <button type="submit" class="submit-btn">Daftar</button>
                 <div class="auth-link">
                     <p>Sudah punya akun? <a href="/PBP-KELOMPOK-04-2025/public/login">Login di sini</a></p>
                 </div>

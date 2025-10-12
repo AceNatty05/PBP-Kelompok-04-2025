@@ -40,7 +40,7 @@
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" required>
                 </div>
-
+                    <button type="submit" class="submit-btn">Login</button>
                 <div class="auth-link">
                     <p>Belum punya akun? <a href="/PBP-KELOMPOK-04-2025/public/register">Daftar di sini</a></p>
                 </div>
