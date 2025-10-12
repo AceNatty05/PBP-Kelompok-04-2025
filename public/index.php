@@ -1,58 +1,47 @@
 <?php
-/**
- * --------------------------------------------------------------------------
- * TITIK MASUK UTAMA APLIKASI (FRONT CONTROLLER)
- * --------------------------------------------------------------------------
- *
- * Semua request dari browser akan diarahkan ke file ini. File ini bertugas
- * untuk memuat semua konfigurasi awal, menganalisis URL, dan
- * memanggil Controller yang sesuai.
- */
+// public/index.php
 
-// 1. Mulai session di paling awal untuk seluruh aplikasi
 session_start();
 
-// 2. Muat file konfigurasi dan semua Controller
-// Pastikan path ini benar dari lokasi public/index.php
+// 1. Muat Koneksi Database
 require_once __DIR__ . '/../config/database.php';
+
+// 2. Muat semua Model dan Controller
+require_once __DIR__ . '/../app/model/User.php';
+require_once __DIR__ . '/../app/model/Product.php';
+// ... (tambahkan model lain seperti Cart.php dan Order.php nanti)
+
+require_once __DIR__ . '/../app/controller/HomeController.php';
+require_once __DIR__ . '/../app/controller/AuthController.php'; // Tetap ada untuk logout dan session
 require_once __DIR__ . '/../app/controller/ProductController.php';
-require_once __DIR__ . '/../app/controller/AuthController.php';
-// Tambahkan controller lain di sini saat Anda membuatnya, contoh:
-// require_once __DIR__ . '/../app/controller/CartController.php';
+require_once __DIR__ . '/../app/controller/AdminController.php';
 
-// 3. Definisikan BASE_URL untuk menangani subdirektori
-// PENTING: Sesuaikan nama folder ini jika nama folder proyek Anda berbeda
-define('BASE_URL', '/PBP-Kelompok-04-2025');
+// 3. Simple Routing
+$request_uri = $_SERVER['REQUEST_URI'];
+$base_path = '/PBP-KELOMPOK-04-2025/public';
+$route = str_replace($base_path, '', $request_uri);
+$route = strtok($route, '?'); // Hapus query string
 
-// 4. Logika Routing Sederhana
-// Ambil path lengkap dari URL
-$requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-// Hapus bagian BASE_URL dari path untuk mendapatkan rute yang bersih
-$route = str_replace(BASE_URL, '', $requestUri);
-// Jika rutenya kosong setelah dihapus, berarti itu adalah halaman utama ('/')
-if (empty($route)) {
-    $route = '/';
-}
-
-// 5. Jalankan Controller berdasarkan rute yang didapat
 switch ($route) {
-    // Rute Halaman Utama
+    // Rute Umum & Produk
     case '/':
-        $controller = new ProductController($pdo);
+        $controller = new HomeController($pdo);
         $controller->index();
         break;
-
-    // Rute-rute Autentikasi
+    case '/products':
+        $controller = new ProductController($pdo);
+        $controller->listProducts();
+        break;
+    
+    // Rute Autentikasi
     case '/login':
         $controller = new AuthController($pdo);
-        // Cek apakah form login disubmit (POST) atau hanya ditampilkan (GET)
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $controller->login();
         } else {
             $controller->showLoginForm();
         }
         break;
-    
     case '/register':
         $controller = new AuthController($pdo);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -61,28 +50,29 @@ switch ($route) {
             $controller->showRegisterForm();
         }
         break;
-
     case '/logout':
         $controller = new AuthController($pdo);
         $controller->logout();
         break;
 
-    // Rute untuk Keranjang Belanja (Contoh placeholder)
-    case '/cart':
-        // Nanti ini akan memanggil CartController yang sebenarnya
-        echo "<h1>Halaman Keranjang Belanja</h1><p>Fitur ini sedang dalam pengembangan.</p>";
-        // Contoh pemanggilan controller di masa depan:
-        // $controller = new CartController($pdo);
-        // $controller->index();
+    // Rute Admin
+    case '/admin':
+        $controller = new AdminController($pdo);
+        $controller->dashboard();
         break;
+    case '/admin/products/create':
+        $controller = new AdminController($pdo);
+        $controller->createProduct();
+        break;
+    // ... (tambahkan rute admin lain untuk edit, delete, orders)
 
-    // Halaman Tidak Ditemukan (404)
+    // Rute Keranjang & Pesanan (akan ditambahkan nanti)
+    // case '/cart':
+    // case '/checkout':
+
     default:
         http_response_code(404);
-        // Anda bisa membuat file view khusus untuk halaman 404
-        // require_once __DIR__ . '/../views/404.php';
-        echo "<h1>404 - Halaman Tidak Ditemukan</h1>";
+        echo "<h1>404 Page Not Found</h1>";
         break;
 }
-
 ?>

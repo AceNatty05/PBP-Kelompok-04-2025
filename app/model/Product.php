@@ -1,96 +1,69 @@
 <?php
+// app/model/Product.php
+
 class Product {
-    // Properti untuk menampung koneksi database
     private $pdo;
 
-    // Constructor untuk menerima koneksi database saat objek dibuat
     public function __construct($pdo) {
         $this->pdo = $pdo;
     }
 
     /**
-     * READ: Mengambil semua produk yang aktif.
-     * @return array Daftar semua produk.
+     * Mengambil semua produk yang aktif. (User Story 1)
      */
-    public function getAllProducts() {
+    public function getAllActiveProducts() {
         $stmt = $this->pdo->prepare("SELECT * FROM products WHERE is_active = TRUE ORDER BY created_at DESC");
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
     }
 
     /**
-     * READ: Mengambil satu produk berdasarkan ID-nya.
-     * @param string $id ID produk yang akan dicari.
-     * @return mixed Array berisi data produk jika ditemukan, atau false jika tidak.
+     * Mencari produk berdasarkan nama. (User Story 2)
      */
-    public function getProductById($id) {
-        $stmt = $this->pdo->prepare("SELECT * FROM products WHERE id_products = :id");
-        $stmt->bindParam(':id', $id);
+    public function searchProducts($searchTerm) {
+        $stmt = $this->pdo->prepare("SELECT * FROM products WHERE name LIKE ? AND is_active = TRUE");
+        $stmt->execute(['%' . $searchTerm . '%']);
+        return $stmt->fetchAll();
+    }
+
+    /**
+     * Mengambil semua produk (untuk admin).
+     */
+    public function getAllProductsForAdmin() {
+        $stmt = $this->pdo->prepare("SELECT p.*, c.name as category_name FROM products p LEFT JOIN categories_x_products cxp ON p.id_products = cxp.products_id_products LEFT JOIN categories c ON cxp.categories_id_categories = c.id_categories ORDER BY p.created_at DESC");
         $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
     }
-
+    
     /**
-     * CREATE: Menambahkan produk baru ke database.
-     * @param array $data Data produk baru (misal: ['name' => ..., 'price' => ..., 'stock' => ..., 'gambar' => ...]).
-     * @return bool True jika berhasil, false jika gagal.
+     * Membuat produk baru. (User Story 6)
      */
-    public function createProduct($data) {
-        // Generate ID unik untuk produk baru
-        $id = uniqid('PROD_');
+    public function createProduct($name, $price, $stock, $description, $gambar) {
+        // ID Produk unik
+        $productId = 'PRD' . time();
 
-        $sql = "INSERT INTO products (id_products, name, price, stock, gambar) VALUES (:id, :name, :price, :stock, :gambar)";
-        $stmt = $this->pdo->prepare($sql);
-
-        // Binding parameter untuk keamanan
-        $stmt->bindParam(':id', $id);
-        $stmt->bindParam(':name', $data['name']);
-        $stmt->bindParam(':price', $data['price']);
-        $stmt->bindParam(':stock', $data['stock']);
-        $stmt->bindParam(':gambar', $data['gambar']); // Nama file gambar
-
-        return $stmt->execute();
+        $stmt = $this->pdo->prepare(
+            "INSERT INTO products (id_products, name, gambar, price, stock, description) VALUES (?, ?, ?, ?, ?, ?)"
+        );
+        return $stmt->execute([$productId, $name, $gambar, $price, $stock, $description]);
     }
 
     /**
-     * UPDATE: Memperbarui data produk yang ada berdasarkan ID.
-     * @param string $id ID produk yang akan diperbarui.
-     * @param array $data Data baru untuk produk.
-     * @return bool True jika berhasil, false jika gagal.
+     * Mengupdate data produk. (User Story 6)
      */
-    public function updateProduct($id, $data) {
-        $sql = "UPDATE products SET name = :name, price = :price, stock = :stock, gambar = :gambar WHERE id_products = :id";
-        $stmt = $this->pdo->prepare($sql);
-
-        $stmt->bindParam(':name', $data['name']);
-        $stmt->bindParam(':price', $data['price']);
-        $stmt->bindParam(':stock', $data['stock']);
-        $stmt->bindParam(':gambar', $data['gambar']);
-        $stmt->bindParam(':id', $id);
-
-        return $stmt->execute();
+    public function updateProduct($id, $name, $price, $stock, $description, $gambar) {
+        $stmt = $this->pdo->prepare(
+            "UPDATE products SET name = ?, gambar = ?, price = ?, stock = ?, description = ? WHERE id_products = ?"
+        );
+        return $stmt->execute([$name, $gambar, $price, $stock, $description, $id]);
     }
 
     /**
-     * DELETE: Menghapus produk dari database (Soft Delete).
-     * Metode ini tidak benar-benar menghapus data, hanya mengubah status is_active menjadi false.
-     * Ini lebih aman karena data masih bisa dipulihkan jika perlu.
-     * @param string $id ID produk yang akan dihapus.
-     * @return bool True jika berhasil, false jika gagal.
+     * Menghapus produk (soft delete dengan mengubah is_active). (User Story 6)
      */
     public function deleteProduct($id) {
-        // Ini adalah "Soft Delete", cara yang lebih aman
-        $sql = "UPDATE products SET is_active = FALSE WHERE id_products = :id";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->bindParam(':id', $id);
-        return $stmt->execute();
-        
-        /* // Jika Anda benar-benar ingin menghapus data secara permanen (Hard Delete):
-        $sql = "DELETE FROM products WHERE id_products = :id";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->bindParam(':id', $id);
-        return $stmt->execute();
-        */
+        $stmt = $this->pdo->prepare("UPDATE products SET is_active = FALSE WHERE id_products = ?");
+        return $stmt->execute([$id]);
     }
 }
 ?>
