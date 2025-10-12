@@ -25,19 +25,17 @@ class AuthController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userModel = new User($this->pdo);
             
-            // Cek apakah email sudah ada
             if ($userModel->findByEmail($_POST['email'])) {
-                // Kirim pesan error kembali ke form registrasi
                 $error = "Email sudah terdaftar!";
                 require __DIR__ . '/../../views/register.php';
                 return;
             }
 
-            // Buat user baru
+            // Tambahkan validasi lain jika perlu (misal: panjang password)
+
             $success = $userModel->createUser($_POST['fullname'], $_POST['email'], $_POST['password']);
 
             if ($success) {
-                // Jika berhasil, redirect ke halaman login
                 header("Location: /PBP-KELOMPOK-04-2025/public/login?status=reg_success");
                 exit();
             } else {
@@ -53,16 +51,20 @@ class AuthController {
             $userModel = new User($this->pdo);
             $user = $userModel->findByEmail($_POST['email']);
 
-            // Verifikasi user dan password
             if ($user && password_verify($_POST['password'], $user['password_hash'])) {
-                // Simpan informasi user ke session
-                session_start();
+                // Regenerate session ID untuk keamanan
+                session_regenerate_id(true); 
+                
                 $_SESSION['user_id'] = $user['id_users'];
                 $_SESSION['user_name'] = $user['name'];
                 $_SESSION['user_role'] = $user['role'];
 
-                // Redirect ke halaman utama
-                header("Location: /PBP-KELOMPOK-04-2025/public/");
+                // Redirect berdasarkan role
+                if ($user['role'] === 'admin') {
+                    header("Location: /PBP-KELOMPOK-04-2025/public/admin");
+                } else {
+                    header("Location: /PBP-KELOMPOK-04-2025/public/");
+                }
                 exit();
             } else {
                 $error = "Email atau password salah!";
@@ -74,8 +76,8 @@ class AuthController {
     // Fungsi untuk logout
     public function logout() {
         session_start();
-        session_unset(); // Hapus semua variabel session
-        session_destroy(); // Hancurkan session
+        session_unset();
+        session_destroy();
         header("Location: /PBP-KELOMPOK-04-2025/public/login");
         exit();
     }
