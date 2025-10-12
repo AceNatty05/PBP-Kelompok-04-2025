@@ -53,6 +53,6 @@
         <p>&copy; 2025 BumiNadi. All rights reserved.</p>
     </footer>
 
-    <script src="/js/auth.js"></script>
+    <!-- <script src="/js/auth.js"></script> -->
 </body>
 </html>

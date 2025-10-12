@@ -24,7 +24,7 @@ class AuthController {
     public function register() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userModel = new User($this->pdo);
-            $password = $userModel->findByEmail($_POST['password']);
+            $password = $_POST['password'];
             
             if ($userModel->findByEmail($_POST['email'])) {
                 $error = "Email sudah terdaftar!";
