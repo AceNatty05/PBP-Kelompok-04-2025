@@ -24,6 +24,7 @@ class AuthController {
     public function register() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userModel = new User($this->pdo);
+            $password = $userModel->findByEmail($_POST['password']);
             
             if ($userModel->findByEmail($_POST['email'])) {
                 $error = "Email sudah terdaftar!";
@@ -31,7 +32,15 @@ class AuthController {
                 return;
             }
 
-            // Tambahkan validasi lain jika perlu (misal: panjang password)
+            // Validasi password
+            if (strlen($password) < 8 ||
+                !preg_match('/[A-Z]/', $password) ||
+                !preg_match('/[a-z]/', $password) ||
+                !preg_match('/[0-9]/', $password)) {
+                $error = "Password setidaknya 8 karakter, setidaknya 1 huruf kapital, 1 huruf kecil, dan 1 angka";
+                require __DIR__ . '/../../views/register.php';
+                return;
+            }
 
             $success = $userModel->createUser($_POST['fullname'], $_POST['email'], $_POST['password']);
 
