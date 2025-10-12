@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - BumiNadi</title>
-    <link rel="stylesheet" href="/PBP-Kelompok-04-2025/public/css/style.css">
-    <link rel="stylesheet" href="/PBP-Kelompok-04-2025/public/css/auth.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/auth.css">
 </head>
 <body>
     <header>
@@ -52,6 +52,6 @@
         <p>&copy; 2025 BumiNadi. All rights reserved.</p>
     </footer>
 
-    <script src="public/js/auth.js"></script>
+    <script src="/js/auth.js"></script>
 </body>
 </html>
