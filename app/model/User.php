@@ -31,7 +31,7 @@ class User {
         );
         
         // Buat ID unik untuk user
-        $userId = 'USR' . time(); 
+        $userId = 'USR' . substr(time(), -7);
 
         try {
             // Role default adalah 'user'
