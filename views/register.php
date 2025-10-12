@@ -14,8 +14,8 @@
                 <h1>BumiNadi</h1>
             </div>
             <ul class="nav-menu">
-                <li><a href="index.php">Beranda</a></li>
-                <li><a href="index.php#products">Produk</a></li>
+                <li><a href="/">Beranda</a></li>
+                <li><a href="/#products">Produk</a></li>
             </ul>
         </nav>
     </header>
