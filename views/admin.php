@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - BumiNadi</title>
-    <link rel="stylesheet" href="/PBP-Kelompok-04-2025/public/css/admin.css">
+    <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
     <header>
@@ -15,7 +15,7 @@
                 <h1>Admin Panel</h1>
             </div>
             <ul class="nav-menu">
-                <li><a href="/views/index.php">Kembali ke Toko</a></li>
+                <li><a href="/">Kembali ke Toko</a></li>
                 <li><span id="admin-welcome">Halo, Admin!</span></li>
                 <li><button id="logout-btn" class="logout-btn">Logout</button></li>
             </ul>
@@ -134,6 +134,6 @@
         </div>
     </div>
 
-    <script src=/public/js/admin.js></script>
+    <script src="/js/admin.js"></script>
 </body>
 </html>
