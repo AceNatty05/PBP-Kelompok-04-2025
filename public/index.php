@@ -9,12 +9,15 @@ require_once __DIR__ . '/../config/database.php';
 // 2. Muat semua Model dan Controller
 require_once __DIR__ . '/../app/model/User.php';
 require_once __DIR__ . '/../app/model/Product.php';
-// ... (tambahkan model lain seperti Cart.php dan Order.php nanti)
+require_once __DIR__ . '/../app/model/Cart.php';
+require_once __DIR__ . '/../app/model/Order.php';
 
 require_once __DIR__ . '/../app/controller/HomeController.php';
 require_once __DIR__ . '/../app/controller/AuthController.php'; // Tetap ada untuk logout dan session
 require_once __DIR__ . '/../app/controller/ProductController.php';
 require_once __DIR__ . '/../app/controller/AdminController.php';
+require_once __DIR__ . '/../app/controller/CartController.php';
+require_once __DIR__ . '/../app/controller/OrderController.php';
 
 // 3. Simple Routing
 $request_uri = $_SERVER['REQUEST_URI'];
@@ -64,11 +67,37 @@ switch ($route) {
         $controller = new AdminController($pdo);
         $controller->createProduct();
         break;
-    // ... (tambahkan rute admin lain untuk edit, delete, orders)
+    case '/admin/orders/update-status':
+        $controller = new AdminController($pdo);
+        $controller->updateOrderStatus();
+        // Redirect back to admin page after update
+        header('Location: /admin');
+        exit();
+        break;
+        
+    // Rute Keranjang
+    case '/cart':
+        $controller = new CartController($pdo);
+        $controller->index();
+        break;
+    case '/cart/add':
+        $controller = new CartController($pdo);
+        $controller->add();
+        break;
+    case '/cart/remove':
+        $controller = new CartController($pdo);
+        $controller->remove();
+        break;
 
-    // Rute Keranjang & Pesanan (akan ditambahkan nanti)
-    // case '/cart':
-    // case '/checkout':
+    // Rute Pesanan
+    case '/order/checkout':
+        $controller = new OrderController($pdo);
+        $controller->checkout();
+        break;
+    case '/order/success':
+        $controller = new OrderController($pdo);
+        $controller->success();
+        break;
 
     default:
         http_response_code(404);

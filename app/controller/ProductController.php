@@ -14,7 +14,7 @@ class ProductController {
         // Buat instance dari model Product
         $productModel = new Product($this->pdo);
         // Panggil fungsi untuk mendapatkan semua produk
-        $products = $productModel->getAllProducts();
+        $products = $productModel->getAllActiveProducts();
 
         // Panggil file view dan kirimkan data $products ke sana
         // Variabel $products akan bisa diakses di dalam file view
