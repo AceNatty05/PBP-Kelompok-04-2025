@@ -8,67 +8,68 @@ class Order {
         $this->pdo = $pdo;
     }
 
-    // Membuat pesanan baru (ini adalah proses transaksi)
-    public function createOrder($userId, $cartItems, $address) {
-        $total = 0;
-        foreach ($cartItems as $item) {
-            $total += $item['price'] * $item['qty'];
-        }
-
-        $orderId = 'ORD' . time();
-        
+    /**
+     * Buat order dari cart items.
+     * Mengembalikan order_id atau false saat gagal.
+     */
+    public function createOrder(int $userId, array $cartItems, string $address) {
         try {
             $this->pdo->beginTransaction();
 
-            // 1. Masukkan data ke tabel 'orders'
-            $stmt = $this->pdo->prepare(
-                "INSERT INTO orders (id_orders, users_id_users, total, status, address_text) VALUES (?, ?, ?, 'pending', ?)"
-            );
-            $stmt->execute([$orderId, $userId, $total, $address]);
-
-            // 2. Masukkan setiap item keranjang ke 'order_items'
-            $stmtItem = $this->pdo->prepare(
-                "INSERT INTO order_items (id_order_items, orders_id_orders, products_id_products, price, qty, subtotal) VALUES (?, ?, ?, ?, ?, ?)"
-            );
-            $stmtUpdateStock = $this->pdo->prepare(
-                "UPDATE products SET stock = stock - ? WHERE id_products = ?"
-            );
-
-            foreach ($cartItems as $item) {
-                $orderItemId = 'OI' . time() . rand(10, 99);
-                $subtotal = $item['price'] * $item['qty'];
-                $stmtItem->execute([$orderItemId, $orderId, $item['products_id_products'], $item['price'], $item['qty'], $subtotal]);
-                
-                // 3. Kurangi stok produk
-                $stmtUpdateStock->execute([$item['qty'], $item['products_id_products']]);
+            // Hitung total
+            $total = 0;
+            foreach ($cartItems as $it) {
+                $price = isset($it['price']) ? (float)$it['price'] : 0.0;
+                $qty = isset($it['qty']) ? (int)$it['qty'] : 0;
+                $total += $price * $qty;
             }
-            
-            $this->pdo->commit();
-            return $orderId; // Berhasil, kembalikan ID pesanan
 
-        } catch (Exception $e) {
+            // Insert ke tabel orders (pastikan tabel orders punya kolom sesuai)
+            $stmt = $this->pdo->prepare("INSERT INTO orders (user_id, total, status, address, created_at) VALUES (:user_id, :total, 'pending', :address, NOW())");
+            $stmt->execute([
+                ':user_id' => $userId,
+                ':total' => $total,
+                ':address' => $address
+            ]);
+            $orderId = $this->pdo->lastInsertId();
+
+            // Insert item order (jika tabel order_items ada)
+            $stmtItem = $this->pdo->prepare("INSERT INTO order_items (order_id, product_id, qty, price) VALUES (:order_id, :product_id, :qty, :price)");
+            foreach ($cartItems as $it) {
+                $productId = $it['product_id'] ?? $it['id'] ?? null;
+                $qty = $it['qty'] ?? 0;
+                $price = $it['price'] ?? 0;
+                if ($productId) {
+                    $stmtItem->execute([
+                        ':order_id' => $orderId,
+                        ':product_id' => $productId,
+                        ':qty' => $qty,
+                        ':price' => $price
+                    ]);
+                }
+            }
+
+            $this->pdo->commit();
+            return $orderId;
+        } catch (Throwable $e) {
             $this->pdo->rollBack();
-            error_log($e->getMessage()); // Log error untuk debugging
-            return false; // Gagal
+            error_log('Order::createOrder error: ' . $e->getMessage());
+            return false;
         }
     }
-    
-    // Mengambil semua pesanan untuk admin
-    public function getAllOrders() {
-        $stmt = $this->pdo->prepare(
-            "SELECT o.*, u.name as user_name 
-             FROM orders o 
-             JOIN users u ON o.users_id_users = u.id_users 
-             ORDER BY o.created_at DESC"
-        );
-        $stmt->execute();
-        return $stmt->fetchAll();
-    }
-    
-    // Mengubah status pesanan
-    public function updateStatus($orderId, $status) {
-        $stmt = $this->pdo->prepare("UPDATE orders SET status = ? WHERE id_orders = ?");
-        return $stmt->execute([$status, $orderId]);
+
+    /**
+     * Optional helper: ambil detail order
+     */
+    public function getById($orderId) {
+        $stmt = $this->pdo->prepare("SELECT * FROM orders WHERE id = :id");
+        $stmt->execute([':id' => $orderId]);
+        $order = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$order) return null;
+        $stmt2 = $this->pdo->prepare("SELECT oi.*, p.name, p.gambar FROM order_items oi LEFT JOIN products p ON oi.product_id = p.id WHERE oi.order_id = :order_id");
+        $stmt2->execute([':order_id' => $orderId]);
+        $order['items'] = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+        return $order;
     }
 }
 ?>

@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - BumiNadi</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/auth.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/public/css/style.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/public/css/auth.css">
 </head>
 <body>
     <header>
@@ -22,7 +22,7 @@
 
     <main>
         <div class="auth-container">
-            <form class="auth-form" id="login-form" action="/PBP-KELOMPOK-04-2025/public/login" method="POST">
+            <form class="auth-form" id="login-form" action="<?= BASE_URL ?>/login" method="POST">
                 <h2>Login</h2>
 
                 <?php if (isset($error)): ?>
@@ -42,7 +42,7 @@
                 </div>
                     <button type="submit" class="submit-btn">Login</button>
                 <div class="auth-link">
-                    <p>Belum punya akun? <a href="/PBP-KELOMPOK-04-2025/public/register">Daftar di sini</a></p>
+                    <p>Belum punya akun? <a href="<?= BASE_URL ?>/register">Daftar di sini</a></p>
                 </div>
             </form>
         </div>

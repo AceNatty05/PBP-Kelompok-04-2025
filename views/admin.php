@@ -1,4 +1,5 @@
-<?php?>
+<?php
+?>
 
 <!DOCTYPE html>
 <html lang="id">
@@ -6,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - BumiNadi</title>
-    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/public/css/admin.css">
 </head>
 <body>
     <header>
@@ -16,6 +17,7 @@
             </div>
             <ul class="nav-menu">
                 <li><a href="/">Kembali ke Toko</a></li>
+                <li><a href="<?= BASE_URL ?>/admin/orders">Pesanan</a></li>
                 <li><span id="admin-welcome">Halo, Admin!</span></li>
                 <li><a href="/logout" id="logout-btn" class="logout-btn">Logout</a></li>
             </ul>
@@ -134,6 +136,6 @@
         </div>
     </div>
 
-    <!-- <script src="/js/admin.js"></script> -->
+    <!-- <script src="<?= BASE_URL ?>/public/js/admin.js"></script> -->
 </body>
 </html>
